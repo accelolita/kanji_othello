@@ -197,9 +197,9 @@ class OthelloApp(tk.Tk):
             self.save_board_state()
 
         elif self.click_action == 'claim' and self.selected_player:
-            # 既に石がある場合は何もしない
-            if self.cell_owners[x][y] is not None:
-                return 
+            # 既に石がある場合も上書き可能にする（アタックチャンス風）
+            # if self.cell_owners[x][y] is not None:
+            #    return 
             
             # 石を置く
             self.cell_owners[x][y] = self.selected_player
