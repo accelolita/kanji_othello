@@ -5,7 +5,7 @@ import random
 
 ROWS = 8
 COLUMNS = 8
-BASE_FONT_SIZE = 40  # 8x8に合わせて少し小さく -> 大きく変更
+BASE_FONT_SIZE = 40  # 8x8に合わせて少し小さく -> 大きく変更 
 CONTROL_FONT_SIZE = 20
 SAVE_FILE = "kanji_othello_state.json"
 KANJI_FILE = "kanji.txt"
@@ -46,8 +46,14 @@ player_names_list, player_colors = load_players()
 
 def load_kanji():
     if os.path.exists(KANJI_FILE):
+        kanjis = []
         with open(KANJI_FILE, "r", encoding="utf-8") as f:
-            kanjis = [line.strip() for line in f if line.strip()]
+            for line in f:
+                line = line.strip()
+                if line:
+                    # 全角スペースを半角スペースに変換し、最初のスペースで分割して前半のみ取得
+                    kanji = line.replace('　', ' ').split(' ', 1)[0]
+                    kanjis.append(kanji)
         # 足りない場合は補充
         while len(kanjis) < ROWS * COLUMNS:
             kanjis.append(f"漢字{len(kanjis)+1}")
